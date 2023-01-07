@@ -1,0 +1,7 @@
+<p>Select left player</p>
+<app-player-card 
+    *ngFor="let player of playersService.playerList$ | async" 
+    [displayNameProvider]="displayNameProvider"
+    [player]="player" 
+    (click)="selectPlayer(player)">
+</app-player-card>

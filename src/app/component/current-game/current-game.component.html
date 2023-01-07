@@ -1,0 +1,44 @@
+<div style="display: flex; flex-direction: column; align-items: stretch;">
+    <div *ngIf="(currentGameService.state$ | async)===currentGameService.stateInProgress()">
+        Serves        
+        <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
+    </div>
+    <div class="glow" *ngIf="(currentGameService.state$ | async)===currentGameService.stateFinished()">
+        The winner is
+        <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
+    </div>
+    <div *ngIf="(currentGameService.state$ | async)===currentGameService.stateSaved()">
+        The game is saved. The winner is
+        <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
+    </div>
+    <div style="display: flex; flex-direction: row;">
+        <app-score-card
+            [displayNameProvider]="currentGameService.displayNameProvider"
+            [player]="currentGameService.leftPlayer" 
+            [score]="currentGameService.leftScore$ | async" 
+            style="width: 0%; flex-grow: 0.5"
+            (click)="currentGameService.incrementLeftScore()">
+        </app-score-card>
+        <app-score-card
+            [displayNameProvider]="currentGameService.displayNameProvider"
+            [player]="currentGameService.rightPlayer" 
+            [score]="currentGameService.rightScore$ | async" 
+            style="width: 0%; flex-grow: 0.5"
+            (click)="currentGameService.incrementRightScore()">
+        </app-score-card>
+    </div>
+    <div style="display: flex; flex-direction: row; width: 100%;">
+        <button 
+            mat-raised-button 
+            (click)="currentGameService.history.undo()"
+            [disabled]="currentGameService.history.empty$ | async">
+            Undo
+        </button>
+        <button 
+            mat-raised-button
+            (click)="currentGameService.save()"
+            [disabled]="(currentGameService.state$ | async)!==currentGameService.stateFinished()">
+            Save
+        </button>
+    </div>
+</div>

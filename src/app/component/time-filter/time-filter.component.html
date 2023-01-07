@@ -1,0 +1,13 @@
+<mat-card style="padding: 0px; border: 0px;">
+    <form [formGroup]="filterForm">
+        <mat-card-content style="display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 5px; padding: 5px;">
+            <input placeholder="From" autocomplete="on" formControlName="from" type="text">
+            <input placeholder="To" autocomplete="on" formControlName="to" type="text">
+            <button mat-raised-button (click)="onFilter()" color="primary" type="submit">Filter</button>
+            <button mat-raised-button (click)="onClickDay()">Day</button>
+            <button mat-raised-button (click)="onClickMonth()">Month</button>
+            <button mat-raised-button (click)="onClickYear()">Year</button>
+            <button mat-raised-button (click)="onClickAll()">All</button>
+        </mat-card-content>
+    </form>
+</mat-card>

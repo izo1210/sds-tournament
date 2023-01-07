@@ -1,0 +1,15 @@
+<p>Select first player</p>
+<div style="display: flex; flex-direction: row; width: 100%;">
+    <app-player-card 
+        [displayNameProvider]="displayNameProvider"
+        [player]="currentGameService.leftPlayer" 
+        style="width: 50%;" 
+        (click)="selectPlayer(currentGameService.leftPlayer)">
+    </app-player-card>
+    <app-player-card 
+        [displayNameProvider]="displayNameProvider"
+        [player]="currentGameService.rightPlayer" 
+        style="width: 50%;" 
+        (click)="selectPlayer(currentGameService.rightPlayer)">
+    </app-player-card>
+</div>

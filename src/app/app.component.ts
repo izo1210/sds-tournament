@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,29 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'sds-tournament';
+  title = 'SDS Tournament';
+
+  constructor(
+    public router: Router,
+    private authService: AuthService
+  )
+  {
+
+  }
+
+  goToResults()
+  {
+    this.router.navigate(["/results"]);
+  }
+
+  goToSelectPlayerOne()
+  {
+    this.router.navigate(["/select-left-player"]);
+  }
+
+  logout()
+  {
+    this.authService.logout();
+  }
+
 }

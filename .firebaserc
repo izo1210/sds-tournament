@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sds-tournament": {
+      "hosting": {
+        "sds-tournament": [
+          "sds-tournament"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sds-tournament"
+  }
+}
