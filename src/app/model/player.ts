@@ -1,7 +1,6 @@
 export interface Player {
-    backgroundColor: string;
-    color: string;
     firstName: string;
+    hue: number;
     id: string;
     lastName: string;
 }

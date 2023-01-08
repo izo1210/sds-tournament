@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Player } from 'src/app/model/player';
 import { PlayersService } from 'src/app/service/players.service';
-import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-name-provider';
+import { PlayerPropertyProvider } from 'src/app/common/player-property-provider/player-property-provider';
 
 @Component({
   selector: 'app-player-card',
@@ -9,9 +9,9 @@ import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-
   styleUrls: ['./player-card.component.sass']
 })
 export class PlayerCardComponent implements OnInit {
-  @Input() public player: Player|null=this.playersService.empty;
+  @Input() public player: Player|null=null;
   @Input() public hideIfPlayer: Player=this.playersService.empty;
-  @Input() public displayNameProvider: DisplayNameProvider=new DisplayNameProvider(true, []);
+  @Input() public playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider([]);
   @Output() public click=new EventEmitter<Player|null>();
 
   constructor(

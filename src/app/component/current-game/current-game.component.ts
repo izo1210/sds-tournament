@@ -9,7 +9,6 @@ import { CurrentGameService } from 'src/app/service/current-game.service';
   styleUrls: ['./current-game.component.sass']
 })
 export class CurrentGameComponent implements OnInit {
-  public paths=Paths.get;
 
   constructor(
     public currentGameService: CurrentGameService,
@@ -19,7 +18,7 @@ export class CurrentGameComponent implements OnInit {
   ngOnInit(): void {
     if(this.currentGameService.state$.value===CurrentGameService.STATE_NOT_READY)
     {
-      this.paths.newLeft.navigate(this.router);
+      Paths.get.newLeft.navigate(this.router);
     }
     
   }

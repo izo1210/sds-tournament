@@ -1,17 +1,18 @@
 <mat-toolbar>
+    <button mat-icon-button matTooltip="Go Back" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
     <span class="spacer"></span>
-    Select right player
+    <span>Select right player</span>
 </mat-toolbar>
 <app-player-card 
     *ngFor="let player of playersService.playerList$ | async"
-    [displayNameProvider]="displayNameProvider"
+    [playerPropertyProvider]="playerPropertyProvider"
     [player]="player" 
     [hideIfPlayer]="currentGameService.leftPlayer"
     (click)="selectPlayer(player)">
 </app-player-card>
-<p>Left player (click to change)</p>
+<p>Left player</p>
 <app-player-card 
-    [displayNameProvider]="displayNameProvider"
-    [player]="currentGameService.leftPlayer"
-    (click)="changeLeftPlayer()">
+    [playerPropertyProvider]="playerPropertyProvider"
+    [player]="currentGameService.leftPlayer">
 </app-player-card>
+<app-add-player-button></app-add-player-button>

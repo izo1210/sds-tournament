@@ -6,7 +6,7 @@
         Wins
     </span>
     <span class="spacer">
-        <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
+        <app-player-card [playerPropertyProvider]="currentGameService.playerPropertyProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
     </span>
     <button  
         mat-icon-button 
@@ -16,6 +16,7 @@
     </button>
     <button 
         mat-raised-button
+        matTooltip="Save game"
         (click)="currentGameService.save()"
         [class.glow]="(currentGameService.state$ | async)===currentGameService.stateFinished()"
         [disabled]="(currentGameService.state$ | async)!==currentGameService.stateFinished()">
@@ -24,13 +25,14 @@
 </mat-toolbar>
 <div class="flex-row-nowrap scores">
     <app-score-card
-        [displayNameProvider]="currentGameService.displayNameProvider"
+        [playerPropertyProvider]="currentGameService.playerPropertyProvider"
         [player]="currentGameService.leftPlayer" 
         [score]="currentGameService.leftScore$ | async" 
         (click)="currentGameService.incrementLeftScore()">
     </app-score-card>
     <app-score-card
-        [displayNameProvider]="currentGameService.displayNameProvider"
+        [secondary]="true"
+        [playerPropertyProvider]="currentGameService.playerPropertyProvider"
         [player]="currentGameService.rightPlayer" 
         [score]="currentGameService.rightScore$ | async" 
         (click)="currentGameService.incrementRightScore()">

@@ -1,20 +1,13 @@
 <div class="fullscreen flex-column-stretch">
 <mat-toolbar>
    <img src="favicon.ico" matTooltip="SDS Tournament" style="padding-right: 10px">
-   <button mat-icon-button matTooltip="New game" [class.selected]="newActivated$|async" (click)="paths.newLeft.navigate(router)">
-      <mat-icon>people_outline</mat-icon>
-   </button>
-   <button mat-icon-button matTooltip="Current game" [class.selected]="playActivated$|async" (click)="paths.play.navigate(router)">
-      <mat-icon>play_circle_outline</mat-icon>
-   </button>
-   <button mat-icon-button matTooltip="List results" [class.selected]="resultsActivated$|async" (click)="paths.results.navigate(router)">
-      <mat-icon>format_list_bulleted</mat-icon>
-   </button>
-   <button mat-icon-button matTooltip="Statistics" [class.selected]="statisticsActivated$|async" (click)="paths.statistics.navigate(router)">
-      <mat-icon>query_stats</mat-icon>
-   </button>
+   <app-navigation-button matTooltip="New game" icon="people_outline" [path]="paths.newLeft" [active$]="newActivated$"></app-navigation-button>
+   <app-navigation-button matTooltip="Current game" icon="play_circle_outline" [path]="paths.play" [active$]="playActivated$"></app-navigation-button>
+   <app-navigation-button matTooltip="List results" icon="format_list_bulleted" [path]="paths.results" [active$]="resultsActivated$"></app-navigation-button>
+   <app-navigation-button matTooltip="Statistics" icon="query_stats" [path]="paths.statistics" [active$]="statisticsActivated$"></app-navigation-button>
    <span class="spacer"></span>
-   <button mat-icon-button matTooltip="Logout" (click)="logout()"><mat-icon>logout</mat-icon></button>
+   <app-navigation-button matTooltip="Manage players" icon="contacts" [path]="paths.players" [active$]="playersActivated$"></app-navigation-button>
+   <app-navigation-button matTooltip="Logout" icon="logout" [path]="paths.logout" confirm="Logout?"></app-navigation-button>
 </mat-toolbar>
 <router-outlet></router-outlet>
 </div>

@@ -1,0 +1,89 @@
+<form class="flex-column-stretch" [formGroup]="playerForm" (ngSubmit)="onSubmit()">
+    <mat-toolbar>
+        <button mat-icon-button matTooltip="Go Back" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+        <span class="spacer"></span>
+        <ng-container *ngIf="(player$|async)?.id===''; then newPlayer; else editPlayer"></ng-container>
+        <ng-template #newPlayer><span>New player</span></ng-template>
+        <ng-template #editPlayer><span>Edit player</span></ng-template>
+        <span class="spacer"></span>
+        <button 
+            mat-icon-button 
+            matTooltip="Delete player"
+            [disabled]="(player$|async)?.id===''"
+            (click)="onDelete()">
+            <mat-icon>delete_outline</mat-icon>
+        </button>
+        <span style="width: 20px"></span>
+        <button 
+            mat-raised-button 
+            color="primary"
+            matTooltip="Save and Go Back" 
+            [disabled]="playerForm.invalid || playerForm.pristine" 
+            (click)="onSubmit()">
+            <mat-icon>save_alt</mat-icon>
+        </button>
+    </mat-toolbar>
+    <app-player-card [player]="player$|async"></app-player-card>
+    <div class="flex-column-center" style="padding: 5px">
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>First name</mat-label>
+            <input 
+                matInput 
+                formControlName="firstName" 
+                autocomplete="off"
+                placeholder="Primary name"
+                matTooltip="The name what the player called generally" 
+                maxlength="15"
+            />
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Last name</mat-label>
+            <input
+                matInput 
+                formControlName="lastName" 
+                autocomplete="off"
+                placeholder="Secondary name (for when Primary name exists)"
+                matTooltip="The name what distinguishes player if more than one first name exists"
+                maxlength="30"
+            />
+            <mat-error *ngIf="lastNameControl.invalid">{{lastNameControl.getError("error")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Color (hue)</mat-label>
+            <div class="flex-row-nowrap">
+                <mat-slider 
+                    [min]="0"  
+                    [max]="360-hueStep" 
+                    [step]="hueStep" 
+                    class="flex-child-grow"
+                    [value]="hueControl.value"
+                    (input)="hueControl.setValue($event.value); hueControl.markAsDirty()"
+                    discrete
+                >
+                </mat-slider>
+                <input
+                    matInput
+                    type="number" 
+                    formControlName="hue" 
+                    autocomplete="off"
+                    style="width: 40px;"
+                    readonly
+                />
+            </div>
+            <mat-error *ngIf="hueControl.invalid">{{hueControl.getError("error")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>ID (reaonly)</mat-label>
+            <input
+                matInput 
+                formControlName="id" 
+                autocomplete="off"
+                matTooltip="Unique identifier (calculated)"
+                readonly
+            />
+            <mat-error *ngIf="idControl.invalid">{{idControl.getError("error")}}</mat-error>
+        </mat-form-field>
+    </div>
+</form>
+
+

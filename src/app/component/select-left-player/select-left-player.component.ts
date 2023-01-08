@@ -4,7 +4,7 @@ import { Paths } from 'src/app/app-routing.module';
 import { Player } from 'src/app/model/player';
 import { CurrentGameService } from 'src/app/service/current-game.service';
 import { PlayersService } from 'src/app/service/players.service';
-import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-name-provider';
+import { PlayerPropertyProvider } from 'src/app/common/player-property-provider/player-property-provider';
 
 @Component({
   selector: 'app-select-left-player',
@@ -12,7 +12,7 @@ import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-
   styleUrls: ['./select-left-player.component.sass']
 })
 export class SelectLeftPlayerComponent implements OnInit, OnDestroy {
-  public readonly displayNameProvider: DisplayNameProvider=new DisplayNameProvider(true, []);
+  public readonly playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider([]);
 
   constructor(
     public playersService: PlayersService,
@@ -30,19 +30,24 @@ export class SelectLeftPlayerComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.displayNameProvider.subscribeToPlayers(this.playersService.playerList$);
+    this.playerPropertyProvider.subscribeToPlayers(this.playersService.playerList$);
   }
 
   ngOnDestroy(): void 
   {
-    this.displayNameProvider.unsubscribeFromPlayers();
+    this.playerPropertyProvider.unsubscribeFromPlayers();
   }
 
-  selectPlayer(player: Player)
+  selectPlayer(player: Player): void
   {
     this.currentGameService.reset();
     this.currentGameService.leftPlayer=player;
     Paths.get.newRight.navigate(this.router);
+  }
+
+  addPlayer(): void
+  {
+    Paths.get.player.navigate(this.router); 
   }
 
 }

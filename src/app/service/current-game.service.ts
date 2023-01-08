@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Game } from '../model/game';
 import { Player } from '../model/player';
-import { DisplayNameProvider } from '../util/display-name-provider/display-name-provider';
+import { PlayerPropertyProvider } from '../common/player-property-provider/player-property-provider';
 import { History } from '../util/history/history';
 import { GamesService } from './games/games.service';
 import { PlayersService } from './players.service';
@@ -27,8 +27,7 @@ export class CurrentGameService {
   readonly serverPlayer$: BehaviorSubject<Player>=new BehaviorSubject<Player>(this.playersService.empty);
   readonly state$: BehaviorSubject<number>=new BehaviorSubject<number>(CurrentGameService.STATE_NOT_READY);
   readonly history: History=new History();
-  readonly displayNameProvider: DisplayNameProvider=new DisplayNameProvider(false, []);
-
+  readonly playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider([]);
   
   constructor(
     private playersService: PlayersService,
@@ -49,13 +48,13 @@ export class CurrentGameService {
     this.firstPlayer=this.playersService.empty;
     this.secondPlayer=this.playersService.empty;
     this.serverPlayer$.next(this.playersService.empty);
-    this.leftScore$.next(9); //TODO set to 0
-    this.rightScore$.next(3); //TODO set to 0
+    this.leftScore$.next(0);
+    this.rightScore$.next(0);
   }
 
   start(player: Player)
   {
-    this.displayNameProvider.setPlayers(this.getPlayers());
+    this.playerPropertyProvider.setPlayers(this.getPlayers());
     if(player===this.leftPlayer)
     {
       this.startLeft();
@@ -285,7 +284,7 @@ export class CurrentGameService {
     {
       return;
     }
-    this.speakerService.speak(this.displayNameProvider.get(this.serverPlayer$.value)+" szervál.");
+    this.speakerService.speak(this.playerPropertyProvider.getDisplayName(this.serverPlayer$.value)+" szervál.");
   }
 
   private speakWinner()
@@ -294,7 +293,7 @@ export class CurrentGameService {
     {
       return;
     }
-    this.speakerService.speak(this.displayNameProvider.get(this.leader())+" nyert!");
+    this.speakerService.speak(this.playerPropertyProvider.getDisplayName(this.leader())+" nyert!");
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from 'src/app/service/auth.service';
 import { Paths } from './app-routing.module';
 
 @Component({
@@ -17,21 +16,16 @@ export class AppComponent {
   public playActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   public resultsActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   public statisticsActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  public playersActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
 
   constructor(
     public router: Router,
-    private authService: AuthService,
   )
   {
     router.events.subscribe(event=>this.onRouterEvent(event));
   }
 
-  logout()
-  {
-    this.authService.logout();
-  }
-
-  onRouterEvent(event: any)
+  onRouterEvent(event: any): void
   {
     if(!(event instanceof NavigationEnd)) return;
     const path=event.urlAfterRedirects;
@@ -39,7 +33,8 @@ export class AppComponent {
     this.newActivated$.next(p.newLeft.eq(path)||p.newRight.eq(path)||p.newFirst.eq(path));
     this.playActivated$.next(p.play.eq(path));
     this.resultsActivated$.next(p.results.eq(path));
-    this.statisticsActivated$.next(p.statistics.eq(path));  
+    this.statisticsActivated$.next(p.statistics.eq(path)); 
+    this.playersActivated$.next(p.players.eq(path));
   }
 
 }

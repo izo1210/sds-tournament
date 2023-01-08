@@ -1,56 +1,66 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Player } from '../model/player';
-import { collection, query, where, doc, setDoc } from "firebase/firestore"; 
+import { collection, query, doc, setDoc, DocumentReference } from "firebase/firestore"; 
 import { FirebaseService } from './firebase/firebase.service';
-import { DocumentData, FieldPath, Firestore, getDoc, getDocs, orderBy, QuerySnapshot } from '@angular/fire/firestore';
-
-const PLAYERS_TEST_DATA: Player[]=[
-  { id: "zoltan.boros", firstName: "Zoli", lastName: "Boros", backgroundColor: "olive", color: "white"},
-  { id: "martin.sinka", firstName: "Martin", lastName: "Sinka", backgroundColor: "purple", color: "white"},
-  { id: "tamas.werner", firstName: "Tamás", lastName: "Werner", backgroundColor: "navy", color: "white"},
-  { id: "zoltan.takacs", firstName: "Zoli", lastName: "Takács", backgroundColor: "green", color: "white"},
-];
+import { deleteDoc, DocumentData, Firestore, getDoc, getDocs, QuerySnapshot } from '@angular/fire/firestore';
+import { Path } from '../util/path/path';
+import { Paths } from '../app-routing.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayersService {
-  readonly playerList$: BehaviorSubject<Player[]>=new BehaviorSubject<Player[]>(/*PLAYERS_TEST_DATA*/[]);
-  readonly empty: Player={id: "", firstName: "", lastName: "", color: "", backgroundColor: ""};
+  readonly empty: Player={id: "", firstName: "", lastName: "", hue: 0};
 
   private readonly db: Firestore=this.firebaseService.db;
+  private readonly collectionName="players";
+  readonly playerList$: BehaviorSubject<Player[]>=new BehaviorSubject<Player[]>([]);
 
   constructor(
     private firebaseService: FirebaseService    
   ) 
   { 
-    const fromCollection=collection(this.db, "players");
-    const select=query(fromCollection);
-
-    getDocs(select).then(resultSet=>this.processResultSet(resultSet));
+    this.refreshPlayerList();
   }
 
-  private processResultSet(resultSet: QuerySnapshot<DocumentData>)
+  refreshPlayerList(): void
+  {
+    const fromCollection=collection(this.db, this.collectionName);
+    const select=query(fromCollection);
+    getDocs(select).then(resultSet=>this.fillPlayerList(resultSet));
+  }
+
+  get(id: string): Promise<Player>
+  {
+    return getDoc(this.docRef(id))
+      .then(documentSnapshot=>documentSnapshot.data() as Player);
+  }
+
+  set(player: Player): Promise<void>
+  {
+    return setDoc(this.docRef(player.id), player);
+  }
+
+  private docRef(id: string): DocumentReference<DocumentData>
+  {
+    return doc(this.db, this.collectionName, id);
+  }
+
+  private fillPlayerList(querySnapshot: QuerySnapshot<DocumentData>)
   {
     const newPlayerList: Player[]=[];
-    resultSet.forEach(doc=>newPlayerList.push(doc.data() as Player));
+    querySnapshot.forEach(queryDocumentSnapshot=>newPlayerList.push(queryDocumentSnapshot.data() as Player));
     this.playerList$.next(newPlayerList);
   }
 
-  async get(id: string): Promise<Player>
-  {
-    const docRef=doc(this.db, "players", id);
-    const docSnap=await getDoc(docRef);
-    return new Promise((resolve, reject)=>{
-      if(docSnap.exists())
-      {
-        resolve(docSnap.data() as Player);
-      }
-      else
-      {
-        reject("No such element");
-      }
-    });
+  del(id: string|null, confirmed: boolean): Promise<void>
+  { 
+    if(id==null || id==="" || !confirmed)
+    {
+      return new Promise<void>((resolve, reject)=>{reject();});
+    }
+    return deleteDoc(this.docRef(id));
   }
+  
 }

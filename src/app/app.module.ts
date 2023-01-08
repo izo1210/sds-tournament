@@ -10,6 +10,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSliderModule} from '@angular/material/slider';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -33,6 +35,11 @@ import { ScoreCardComponent } from './component/score-card/score-card.component'
 import { GameCardComponent } from './component/game-card/game-card.component';
 import { TimeFilterComponent } from './component/time-filter/time-filter.component';
 import { StatisticsComponent } from './component/statistics/statistics.component';
+import { EditPlayerComponent } from './component/edit-player/edit-player.component';
+import { ManagePlayersComponent } from './component/manage-players/manage-players.component';
+import { AddPlayerButtonComponent } from './component/add-player-button/add-player-button.component';
+import { NavigationButtonComponent } from './component/navigation-button/navigation-button.component';
+import { LogoutComponent } from './component/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +55,11 @@ import { StatisticsComponent } from './component/statistics/statistics.component
     GameCardComponent,
     TimeFilterComponent,
     StatisticsComponent,
+    EditPlayerComponent,
+    ManagePlayersComponent,
+    AddPlayerButtonComponent,
+    NavigationButtonComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +71,8 @@ import { StatisticsComponent } from './component/statistics/statistics.component
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatRadioModule,
+    MatSliderModule,
     MatSortModule,
     MatTableModule,
     MatTooltipModule,

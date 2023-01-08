@@ -1,6 +1,6 @@
 <mat-card 
     *ngIf="player!==hideIfPlayer" 
-    [style.background-color]="player?.backgroundColor" 
-    [style.color]="player?.color" (click)="onClick(player)">
-    <mat-card-content>{{ displayNameProvider.get(player) }}</mat-card-content>
+    [style.background-color]="playerPropertyProvider.getBackgroundColor(player)" 
+    [style.color]="playerPropertyProvider.getColor(player)" (click)="onClick(player)">
+    <mat-card-content>{{ playerPropertyProvider.getDisplayName(player) }}</mat-card-content>
 </mat-card>

@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  static PATH='login';
 
   loginForm: FormGroup=new FormGroup({
     'email': new FormControl(environment.defaultEmail, [Validators.required, Validators.email]),

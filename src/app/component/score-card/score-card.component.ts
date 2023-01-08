@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, Subscriber, Subscription } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Player } from 'src/app/model/player';
 import { CurrentGameService } from 'src/app/service/current-game.service';
 import { PlayersService } from 'src/app/service/players.service';
-import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-name-provider';
+import { PlayerPropertyProvider } from 'src/app/common/player-property-provider/player-property-provider';
 
 @Component({
   selector: 'app-score-card',
@@ -23,7 +23,8 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   }
 
   @Input() public score: number|null=0;
-  @Input() public displayNameProvider: DisplayNameProvider=new DisplayNameProvider(false, []);
+  @Input() public playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider([]);
+  @Input() public secondary: boolean=false;
   
   public readonly backgroundColor$: BehaviorSubject<string>=new BehaviorSubject<string>("");
   public readonly color$: BehaviorSubject<string>=new BehaviorSubject<string>("");
@@ -49,15 +50,15 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     const serverPlayer: Player=this.currentGameService.serverPlayer$.getValue();
     if(serverPlayer===player)
     {
-      this.backgroundColor$.next(player.backgroundColor);
-      this.color$.next(player.color);
+      this.backgroundColor$.next(this.playerPropertyProvider.getBackgroundColor(player, this.secondary));
+      this.color$.next(this.playerPropertyProvider.getColor(player, this.secondary));
     }
     else
     {
       this.backgroundColor$.next("");
       this.color$.next("");
     }
-    this.displayName$.next(this.displayNameProvider.get(player));
+    this.displayName$.next(this.playerPropertyProvider.getDisplayName(player));
   }
 
 }

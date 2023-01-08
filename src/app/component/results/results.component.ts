@@ -5,7 +5,7 @@ import { GameRow } from 'src/app/model/game/game-row';
 import { Player } from 'src/app/model/player';
 import { GamesService } from 'src/app/service/games/games.service';
 import { PlayersService } from 'src/app/service/players.service';
-import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-name-provider';
+import { PlayerPropertyProvider } from 'src/app/common/player-property-provider/player-property-provider';
 
 @Component({
   selector: 'app-results',
@@ -23,7 +23,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   readonly dataSource$=new BehaviorSubject<GameRow[]>([]);
 
-  readonly displayNameProvider: DisplayNameProvider=new DisplayNameProvider(false, []);
+  readonly playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider([]);
 
   private playerMap: any={};
 
@@ -48,7 +48,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   {
     this.playerMap={};
     playerList.forEach(player=>this.playerMap[player.id]=player);
-    this.displayNameProvider.setPlayers(Object.values(this.playerMap));
+    this.playerPropertyProvider.setPlayers(Object.values(this.playerMap));
   }
 
   private refreshDataSource(games: Game[])
@@ -90,12 +90,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getPlayer(playerId: string)
   {
+    if(this.playerMap[playerId]==null)
+    {
+      this.playerMap[playerId]={id: playerId, firstName: playerId, lastName: "", hue: 0};
+    }
     return this.playerMap[playerId];
   }
 
   getDisplayName(player: Player)
   {
-    return this.displayNameProvider.get(player);
+    return this.playerPropertyProvider.getDisplayName(player);
   }
 
 }

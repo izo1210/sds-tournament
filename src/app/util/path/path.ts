@@ -1,13 +1,17 @@
 import { Router } from "@angular/router";
 
 export class Path {
-    constructor(public path: string)
+    lastVisited: number=-1;
+
+    constructor(public path: string, public tracked: boolean=true)
     {    
     }
   
-    navigate(router: Router)
+    navigate(router: Router, params?: any)
     {
-      router.navigate(["/"+this.path]);
+      if(this.tracked) this.lastVisited=new Date().getTime();
+      if(!params) router.navigate(["/"+this.path]);
+      else router.navigate(["/"+this.path, params]);
     }
   
     eq(testRoute: string): boolean

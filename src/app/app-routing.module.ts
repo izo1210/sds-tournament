@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { CurrentGameComponent } from './component/current-game/current-game.component';
 
 import { LoginComponent } from './component/login/login.component';
@@ -11,18 +11,41 @@ import { SelectFirstPlayerComponent } from './component/select-first-player/sele
 import AuthGuard from './service/auth.guard';
 import { StatisticsComponent } from './component/statistics/statistics.component';
 import { Path } from './util/path/path';
+import { EditPlayerComponent } from './component/edit-player/edit-player.component';
+import { ManagePlayersComponent } from './component/manage-players/manage-players.component';
+import { LogoutComponent } from './component/logout/logout.component';
 
 export class Paths
 {
   static readonly get=new Paths();
 
-  login=new Path('login');
-  newLeft=new Path('new-left');
-  newRight=new Path('new-right');
-  newFirst=new Path('new-first');
-  play=new Path('play');
-  results=new Path('results');
-  statistics=new Path('statistics');
+  login=new Path('login', false);
+  logout=new Path('logout', false);
+  players=new Path('players', true);
+  player=new Path('player', false);
+  play=new Path('play', false);
+  newLeft=new Path('new-left', true);
+  newRight=new Path('new-right', true);
+  newFirst=new Path('new-first', false);
+  results=new Path('results', false);
+  statistics=new Path('statistics', false);
+
+  //location.back() works randomly
+  back(router: Router)
+  {
+    let maxLastVisited=0;
+    let last=this.login;
+    for(let path of Object.values(this))
+    {
+      if(path.lastVisited>maxLastVisited)
+      {
+        maxLastVisited=path.lastVisited;
+        last=path;
+      }
+    }
+    last.navigate(router);
+  }
+
 }
 
 const paths=Paths.get;
@@ -30,13 +53,16 @@ const paths=Paths.get;
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: paths.login.path, component: LoginComponent },
+  { path: paths.logout.path, component: LogoutComponent },
+  { path: paths.players.path, component: ManagePlayersComponent, canActivate: [AuthGuard] },
+  { path: paths.player.path, component: EditPlayerComponent, canActivate: [AuthGuard]  },
+  { path: paths.play.path, component: CurrentGameComponent, canActivate: [AuthGuard]  },
   { path: paths.newLeft.path, component: SelectLeftPlayerComponent, canActivate: [AuthGuard]  },
   { path: paths.newRight.path, component: SelectRightPlayerComponent, canActivate: [AuthGuard]  },
   { path: paths.newFirst.path, component: SelectFirstPlayerComponent, canActivate: [AuthGuard]  },
-  { path: paths.play.path, component: CurrentGameComponent, canActivate: [AuthGuard]  },
   { path: paths.results.path, component: ResultsComponent, canActivate: [AuthGuard]  },
   { path: paths.statistics.path, component: StatisticsComponent, canActivate: [AuthGuard]  },
-  { path: '**', component: LoginComponent }
+ // { path: '**', component: LoginComponent }
 ];
 
 @NgModule({

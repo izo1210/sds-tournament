@@ -7,7 +7,7 @@ import { PlayerStatistics } from 'src/app/model/game/player-statistics';
 import { Player } from 'src/app/model/player';
 import { GamesService } from 'src/app/service/games/games.service';
 import { PlayersService } from 'src/app/service/players.service';
-import { DisplayNameProvider } from 'src/app/util/display-name-provider/display-name-provider';
+import { PlayerPropertyProvider } from 'src/app/common/player-property-provider/player-property-provider';
 
 type PlayerMap={[key: string]: Player};
 type StatisticsMap={[key: string]: PlayerStatistics};
@@ -33,7 +33,7 @@ export class StatisticsComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   private playerMap: PlayerMap={};
-  readonly displayNameProvider: DisplayNameProvider=new DisplayNameProvider(false, Object.values(this.playerMap));
+  readonly playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider(Object.values(this.playerMap));
   readonly rows: PlayerStatistics[]=[];
   readonly dataSource=new MatTableDataSource<PlayerStatistics>(this.rows);
 
@@ -62,7 +62,7 @@ export class StatisticsComponent implements OnInit, OnDestroy, AfterViewInit {
   {
     this.playerMap={};
     playerList.forEach(player=>this.playerMap[player.id]=player);
-    this.displayNameProvider.setPlayers(Object.values(this.playerMap));
+    this.playerPropertyProvider.setPlayers(Object.values(this.playerMap));
   }
 
   private refreshDataSource(games: Game[]): void
@@ -77,12 +77,12 @@ export class StatisticsComponent implements OnInit, OnDestroy, AfterViewInit {
       rowMap[game.leftPlayer].update(game);
       rowMap[game.rightPlayer].update(game);
     }
-    this.dataSource.data=Object.values(rowMap);
+    this.dataSource.data=Object.values(rowMap).filter(row=>row.gameTotal>0);
   }
 
   getDisplayName(player: Player)
   {
-    return this.displayNameProvider.get(player);
+    return this.playerPropertyProvider.getDisplayName(player);
   }
 
 }
