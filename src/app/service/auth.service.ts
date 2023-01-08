@@ -4,6 +4,7 @@ import { getAuth, Auth } from "firebase/auth";
 import { Router } from '@angular/router';
 import { signInWithEmailAndPassword } from '@angular/fire/auth';
 import { FirebaseService } from './firebase/firebase.service';
+import { Paths } from '../app-routing.module';
 
 
 @Injectable({
@@ -22,14 +23,14 @@ export class AuthService {
   public login(email: string, password: string)
   {
     signInWithEmailAndPassword(this.auth, email, password)
-      .then(user=>this.router.navigate(["/current-game"]))
+      .then(user=>Paths.get.play.navigate(this.router))
       .catch(error=>alert(error.message));
   }
 
   public logout()
   {
     this.auth.signOut();
-    this.router.navigate(["/login"]);
+    Paths.get.login.navigate(this.router);
   }
 
   public loggedIn(): Promise<boolean>
@@ -41,7 +42,7 @@ export class AuthService {
         const hasUser: boolean=user!=null;
         if(hasUser===false)
         {
-          this.router.navigate(["/login"]);  
+          Paths.get.login.navigate(this.router);
         }
         resolve(hasUser);
       })

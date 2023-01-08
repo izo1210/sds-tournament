@@ -1,15 +1,19 @@
-<p>Select first player</p>
-<div style="display: flex; flex-direction: row; width: 100%;">
+<mat-toolbar>
+    <span class="spacer"></span>
+    Select first player
+    <span class="spacer"></span>
+</mat-toolbar>
+<div class="flex-row-nowrap" style="width: 100%;">
     <app-player-card 
         [displayNameProvider]="displayNameProvider"
         [player]="currentGameService.leftPlayer" 
-        style="width: 50%;" 
+        style="flex-basis: 50%;" 
         (click)="selectPlayer(currentGameService.leftPlayer)">
     </app-player-card>
     <app-player-card 
         [displayNameProvider]="displayNameProvider"
         [player]="currentGameService.rightPlayer" 
-        style="width: 50%;" 
+        style="flex-basis: 50%;" 
         (click)="selectPlayer(currentGameService.rightPlayer)">
     </app-player-card>
 </div>

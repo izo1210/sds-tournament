@@ -1,7 +1,14 @@
-<mat-card 
+<div class="flex-column-center card" 
     [style.background-color]="backgroundColor$ | async" 
-    [style.color]="color$ | async" 
-    style="display: flex; flex-direction: column; align-items: center;">
-        <mat-card-content style="font-size: 5em; margin: 1em;">{{ score }}</mat-card-content>
-        <mat-card-footer>{{ displayName$ | async }}</mat-card-footer>
-</mat-card>
+    [style.color]="color$ | async">
+    <div class="flex-row-wrap flex-child-grow hide-when-landscape">
+        <span class="score upside-down">{{ score }}</span>
+    </div>
+    <div class="line hide-when-landscape"></div>
+    <div class="flex-row-wrap flex-child-grow">
+        <span class="score">{{ score }}</span>
+    </div>
+    <div class="flex-row-wrap">
+        <span class="name">{{ displayName$ | async }}</span>
+    </div>
+</div>

@@ -4,8 +4,13 @@
    flex-direction: column
    align-items: stretch
 
+.table-container
+   height: 200px
+   flex-grow: 1
+   overflow: auto
+
 tr.mat-header-row
-    height: auto
+    //height: auto
 
 .mat-header-cell:first-of-type,
 .mat-cell:first-of-type
@@ -18,9 +23,14 @@ tr.mat-header-row
 td.mat-cell,
 th.mat-header-cell
    padding: 0px 2px
+   text-align: right
+   border-right: 1px dotted #aaa
 
-.table-container
-   height: 200px
-   flex-grow: 1
-   overflow: auto
+th.mat-header-cell    
+    width: 50px
 
+th.mat-header-cell:first-of-type
+    width: 100px
+
+td.mat-cell
+    font-size: large

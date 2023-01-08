@@ -10,7 +10,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
 //Firebase
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
@@ -30,7 +32,7 @@ import { CurrentGameComponent } from './component/current-game/current-game.comp
 import { ScoreCardComponent } from './component/score-card/score-card.component';
 import { GameCardComponent } from './component/game-card/game-card.component';
 import { TimeFilterComponent } from './component/time-filter/time-filter.component';
-import { StatComponent } from './component/stat/stat.component';
+import { StatisticsComponent } from './component/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,7 @@ import { StatComponent } from './component/stat/stat.component';
     ScoreCardComponent,
     GameCardComponent,
     TimeFilterComponent,
-    StatComponent
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,9 @@ import { StatComponent } from './component/stat/stat.component';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatSortModule,
     MatTableModule,
+    MatTooltipModule,
     FormsModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),

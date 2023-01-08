@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Paths } from 'src/app/app-routing.module';
 import { Player } from 'src/app/model/player';
 import { CurrentGameService } from 'src/app/service/current-game.service';
 import { PlayersService } from 'src/app/service/players.service';
@@ -22,7 +23,7 @@ export class SelectRightPlayerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if(this.currentGameService.leftPlayer===this.playersService.empty)
     {
-      this.router.navigate(["/select-left-player"]);
+      Paths.get.newLeft.navigate(this.router);
     }
 
     this.displayNameProvider.subscribeToPlayers(this.playersService.playerList$);
@@ -36,12 +37,12 @@ export class SelectRightPlayerComponent implements OnInit, OnDestroy {
   selectPlayer(player: Player)
   {
     this.currentGameService.rightPlayer=player;
-    this.router.navigate(["/select-first-player"]);
+    Paths.get.newFirst.navigate(this.router);
   }
 
   changeLeftPlayer()
   {
-    this.router.navigate(["/select-left-player"]);
+    Paths.get.newLeft.navigate(this.router);
   }
 
 }

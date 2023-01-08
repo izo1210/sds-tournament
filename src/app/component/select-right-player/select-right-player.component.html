@@ -1,14 +1,17 @@
-<p>Left player (click to change)</p>
-<app-player-card 
-    [displayNameProvider]="displayNameProvider"
-    [player]="currentGameService.leftPlayer"
-    (click)="changeLeftPlayer()">
-</app-player-card>
-<p>Select right player</p>
+<mat-toolbar>
+    <span class="spacer"></span>
+    Select right player
+</mat-toolbar>
 <app-player-card 
     *ngFor="let player of playersService.playerList$ | async"
     [displayNameProvider]="displayNameProvider"
     [player]="player" 
     [hideIfPlayer]="currentGameService.leftPlayer"
     (click)="selectPlayer(player)">
+</app-player-card>
+<p>Left player (click to change)</p>
+<app-player-card 
+    [displayNameProvider]="displayNameProvider"
+    [player]="currentGameService.leftPlayer"
+    (click)="changeLeftPlayer()">
 </app-player-card>

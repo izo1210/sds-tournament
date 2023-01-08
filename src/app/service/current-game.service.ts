@@ -13,21 +13,21 @@ import { SpeakerService } from './speaker/speaker.service';
   providedIn: 'root'
 })
 export class CurrentGameService {
-  public static readonly STATE_NOT_READY=-1;
-  public static readonly STATE_IN_PROGRESS=0;
-  public static readonly STATE_FINISHED=1;
-  public static readonly STATE_SAVED=2;
+  static readonly STATE_NOT_READY=-1;
+  static readonly STATE_IN_PROGRESS=0;
+  static readonly STATE_FINISHED=1;
+  static readonly STATE_SAVED=2;
 
-  public leftPlayer: Player=this.playersService.empty;
-  public rightPlayer: Player=this.playersService.empty;
+  leftPlayer: Player=this.playersService.empty;
+  rightPlayer: Player=this.playersService.empty;
   private firstPlayer: Player=this.playersService.empty;
   private secondPlayer: Player=this.playersService.empty;
-  public readonly leftScore$: BehaviorSubject<number>=new BehaviorSubject<number>(0);
-  public readonly rightScore$: BehaviorSubject<number>=new BehaviorSubject<number>(0);
-  public readonly serverPlayer$: BehaviorSubject<Player>=new BehaviorSubject<Player>(this.playersService.empty);
-  public readonly state$: BehaviorSubject<number>=new BehaviorSubject<number>(CurrentGameService.STATE_NOT_READY);
-  public readonly history: History=new History();
-  public readonly displayNameProvider: DisplayNameProvider=new DisplayNameProvider(false, []);
+  readonly leftScore$: BehaviorSubject<number>=new BehaviorSubject<number>(0);
+  readonly rightScore$: BehaviorSubject<number>=new BehaviorSubject<number>(0);
+  readonly serverPlayer$: BehaviorSubject<Player>=new BehaviorSubject<Player>(this.playersService.empty);
+  readonly state$: BehaviorSubject<number>=new BehaviorSubject<number>(CurrentGameService.STATE_NOT_READY);
+  readonly history: History=new History();
+  readonly displayNameProvider: DisplayNameProvider=new DisplayNameProvider(false, []);
 
   
   constructor(

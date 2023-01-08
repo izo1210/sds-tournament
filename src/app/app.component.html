@@ -1,7 +1,20 @@
+<div class="fullscreen flex-column-stretch">
 <mat-toolbar>
-   <button mat-button (click)="router.navigate(['/select-left-player'])">New</button>
-   <button mat-button (click)="router.navigate(['/current-game'])">Current</button>
-   <button mat-button (click)="router.navigate(['/results'])">Results</button>
-   <button mat-button (click)="logout()">Logout</button>
+   <img src="favicon.ico" matTooltip="SDS Tournament" style="padding-right: 10px">
+   <button mat-icon-button matTooltip="New game" [class.selected]="newActivated$|async" (click)="paths.newLeft.navigate(router)">
+      <mat-icon>people_outline</mat-icon>
+   </button>
+   <button mat-icon-button matTooltip="Current game" [class.selected]="playActivated$|async" (click)="paths.play.navigate(router)">
+      <mat-icon>play_circle_outline</mat-icon>
+   </button>
+   <button mat-icon-button matTooltip="List results" [class.selected]="resultsActivated$|async" (click)="paths.results.navigate(router)">
+      <mat-icon>format_list_bulleted</mat-icon>
+   </button>
+   <button mat-icon-button matTooltip="Statistics" [class.selected]="statisticsActivated$|async" (click)="paths.statistics.navigate(router)">
+      <mat-icon>query_stats</mat-icon>
+   </button>
+   <span class="spacer"></span>
+   <button mat-icon-button matTooltip="Logout" (click)="logout()"><mat-icon>logout</mat-icon></button>
 </mat-toolbar>
 <router-outlet></router-outlet>
+</div>

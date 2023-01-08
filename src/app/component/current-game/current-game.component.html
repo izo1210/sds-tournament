@@ -1,44 +1,38 @@
-<div style="display: flex; flex-direction: column; align-items: stretch;">
-    <div *ngIf="(currentGameService.state$ | async)===currentGameService.stateInProgress()">
-        Serves        
+<mat-toolbar>
+    <span *ngIf="(currentGameService.state$ | async)===currentGameService.stateInProgress()">
+        <span >Serves</span>
+    </span>
+    <span class="glow" *ngIf="((currentGameService.state$ | async)||-1)>=currentGameService.stateFinished()">
+        Wins
+    </span>
+    <span class="spacer">
         <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
-    </div>
-    <div class="glow" *ngIf="(currentGameService.state$ | async)===currentGameService.stateFinished()">
-        The winner is
-        <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
-    </div>
-    <div *ngIf="(currentGameService.state$ | async)===currentGameService.stateSaved()">
-        The game is saved. The winner is
-        <app-player-card [displayNameProvider]="currentGameService.displayNameProvider" [player]="currentGameService.serverPlayer$ | async"></app-player-card>
-    </div>
-    <div style="display: flex; flex-direction: row;">
-        <app-score-card
-            [displayNameProvider]="currentGameService.displayNameProvider"
-            [player]="currentGameService.leftPlayer" 
-            [score]="currentGameService.leftScore$ | async" 
-            style="width: 0%; flex-grow: 0.5"
-            (click)="currentGameService.incrementLeftScore()">
-        </app-score-card>
-        <app-score-card
-            [displayNameProvider]="currentGameService.displayNameProvider"
-            [player]="currentGameService.rightPlayer" 
-            [score]="currentGameService.rightScore$ | async" 
-            style="width: 0%; flex-grow: 0.5"
-            (click)="currentGameService.incrementRightScore()">
-        </app-score-card>
-    </div>
-    <div style="display: flex; flex-direction: row; width: 100%;">
-        <button 
-            mat-raised-button 
-            (click)="currentGameService.history.undo()"
-            [disabled]="currentGameService.history.empty$ | async">
-            Undo
-        </button>
-        <button 
-            mat-raised-button
-            (click)="currentGameService.save()"
-            [disabled]="(currentGameService.state$ | async)!==currentGameService.stateFinished()">
-            Save
-        </button>
-    </div>
+    </span>
+    <button  
+        mat-icon-button 
+        (click)="currentGameService.history.undo()"
+        [disabled]="currentGameService.history.empty$ | async">
+        <mat-icon>undo</mat-icon>
+    </button>
+    <button 
+        mat-raised-button
+        (click)="currentGameService.save()"
+        [class.glow]="(currentGameService.state$ | async)===currentGameService.stateFinished()"
+        [disabled]="(currentGameService.state$ | async)!==currentGameService.stateFinished()">
+        <mat-icon>save_alt</mat-icon>
+    </button>
+</mat-toolbar>
+<div class="flex-row-nowrap scores">
+    <app-score-card
+        [displayNameProvider]="currentGameService.displayNameProvider"
+        [player]="currentGameService.leftPlayer" 
+        [score]="currentGameService.leftScore$ | async" 
+        (click)="currentGameService.incrementLeftScore()">
+    </app-score-card>
+    <app-score-card
+        [displayNameProvider]="currentGameService.displayNameProvider"
+        [player]="currentGameService.rightPlayer" 
+        [score]="currentGameService.rightScore$ | async" 
+        (click)="currentGameService.incrementRightScore()">
+    </app-score-card>
 </div>

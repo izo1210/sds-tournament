@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Paths } from 'src/app/app-routing.module';
 import { Player } from 'src/app/model/player';
 import { CurrentGameService } from 'src/app/service/current-game.service';
 import { PlayersService } from 'src/app/service/players.service';
@@ -22,14 +23,14 @@ export class SelectFirstPlayerComponent implements OnInit {
   ngOnInit(): void {
     if(this.currentGameService.leftPlayer===this.playersService.empty)
     {
-      this.router.navigate(["/select-right-player"]);
+      Paths.get.newRight.navigate(this.router);
     }
   }
 
   selectPlayer(player: Player)
   {
     this.currentGameService.start(player);
-    this.router.navigate(["/current-game"]);
+    Paths.get.play.navigate(this.router);
   }
 
 }

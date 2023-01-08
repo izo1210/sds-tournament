@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Paths } from 'src/app/app-routing.module';
 import { Player } from 'src/app/model/player';
 import { CurrentGameService } from 'src/app/service/current-game.service';
 import { PlayersService } from 'src/app/service/players.service';
@@ -25,7 +26,7 @@ export class SelectLeftPlayerComponent implements OnInit, OnDestroy {
     {
       if(!confirm("Current game is not saved. Do you want to start new game?"))
       {
-        this.router.navigate(["/current-game"]);
+        Paths.get.play.navigate(this.router);
       }
     }
 
@@ -41,7 +42,7 @@ export class SelectLeftPlayerComponent implements OnInit, OnDestroy {
   {
     this.currentGameService.reset();
     this.currentGameService.leftPlayer=player;
-    this.router.navigate(["/select-right-player"]);
+    Paths.get.newRight.navigate(this.router);
   }
 
 }

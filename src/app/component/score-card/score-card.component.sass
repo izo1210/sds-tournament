@@ -1,4 +1,31 @@
 :host
-    margin: 1em
+    flex-basis: 50%
+
+.card
+    margin: 0px
+    height:100%
     cursor: pointer
     user-select: none
+
+.name
+    font-size: 30px
+    line-height: 1.5
+    white-space: normal
+    text-align: center
+    padding-bottom: 20px
+
+.score
+    font-size: 150px
+
+.line
+    width: 90%
+    height: 0px
+    border-top: 1px solid white
+
+.upside-down
+    transform: rotate(180deg)
+
+@media (orientation: landscape)
+    .hide-when-landscape
+        display: none
+

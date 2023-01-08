@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Game } from 'src/app/model/game';
 import { GameRow } from 'src/app/model/game/game-row';
@@ -30,12 +29,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   private gamesSubscription: Subscription=this.gamesService.games$.subscribe(games=>this.refreshDataSource(games));
   private playersSubscription: Subscription=this.playersService.playerList$.subscribe(playerList=>this.fillPlayerMap(playerList));
-
-  filterForm: FormGroup=new FormGroup({
-    'from': new FormControl(""),
-    'to': new FormControl("")
-  });
-
 
   constructor(
     public gamesService: GamesService,
@@ -82,10 +75,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
       {
         const gameRow: GameRow={
           winnerPlayer: rightPlayer,
-          winnerScore: game.leftScore,
+          winnerScore: game.rightScore,
           winnerDisplayName: this.getDisplayName(rightPlayer),
           loserPlayer: leftPlayer,
-          loserScore: game.rightScore,
+          loserScore: game.leftScore,
           loserDisplayName: this.getDisplayName(leftPlayer),
           timestamp: game.timestamp
         };

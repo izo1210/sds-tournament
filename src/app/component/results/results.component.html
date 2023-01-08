@@ -1,51 +1,33 @@
 <app-time-filter (filter)="gamesService.queryRange($event.from, $event.to)"></app-time-filter>
-
-<table mat-table [dataSource]="dataSource$" style="width: 100%">
-    <!-- Columns -->
-    <ng-container matColumnDef="winnerPlayer">
-        <th mat-header-cell *matHeaderCellDef>Winner player</th>
-        <td 
-            mat-cell 
-            *matCellDef="let row" 
-            [style.backgroundColor]="row.winnerPlayer.backgroundColor"
-            [style.color]="row.winnerPlayer.color"
-            >{{ getDisplayName(row.winnerPlayer) }}</td>
-    </ng-container>
-    <ng-container matColumnDef="winnerScore">
-        <th mat-header-cell *matHeaderCellDef>Winner score</th>
-        <td 
-            mat-cell 
-            *matCellDef="let row"
-            [style.backgroundColor]="row.winnerPlayer.backgroundColor"
-            [style.color]="row.winnerPlayer.color"
-            >{{ row.winnerScore }}</td>
-    </ng-container>
-    <ng-container matColumnDef="loserPlayer">
-        <th mat-header-cell *matHeaderCellDef>Loser player</th>
-        <td 
-            mat-cell 
-            *matCellDef="let row" 
-            [style.backgroundColor]="row.loserPlayer.backgroundColor"
-            [style.color]="row.loserPlayer.color"
-            >{{ getDisplayName(row.loserPlayer) }}</td>
-    </ng-container>
-    <ng-container matColumnDef="loserScore">
-        <th mat-header-cell *matHeaderCellDef>Loser score</th>
-        <td 
-            mat-cell 
-            *matCellDef="let row"
-            [style.backgroundColor]="row.loserPlayer.backgroundColor"
-            [style.color]="row.loserPlayer.color"
-            >{{ row.loserScore }}</td>
-    </ng-container>
-    <ng-container matColumnDef="timestamp">
-        <th mat-header-cell *matHeaderCellDef>Timestamp</th>
-        <td 
-            mat-cell 
-            *matCellDef="let row"
-            >{{ row.timestamp }}</td>
-    </ng-container>
-    <!-- Rows -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<div class="flex-column-stretch table-container">
+    <table mat-table [dataSource]="dataSource$">
+        <!-- Columns -->
+        <ng-container matColumnDef="winnerPlayer">
+            <th mat-header-cell *matHeaderCellDef>Winner</th>
+            <td mat-cell *matCellDef="let row">
+                <app-player-card [player]="row.winnerPlayer" [displayNameProvider]="displayNameProvider"></app-player-card>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="winnerScore">
+            <th mat-header-cell *matHeaderCellDef>sc.</th>
+            <td mat-cell *matCellDef="let row">{{ row.winnerScore }}</td>
+        </ng-container>
+        <ng-container matColumnDef="loserPlayer">
+            <th mat-header-cell *matHeaderCellDef>Loser</th>
+            <td  mat-cell *matCellDef="let row">
+                <app-player-card [player]="row.loserPlayer" [displayNameProvider]="displayNameProvider"></app-player-card>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="loserScore">
+            <th mat-header-cell *matHeaderCellDef>sc.</th>
+            <td mat-cell  *matCellDef="let row">{{ row.loserScore }}</td>
+        </ng-container>
+        <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef>Timestamp</th>
+            <td mat-cell *matCellDef="let row">{{ row.timestamp.substring(0, 16).replace('T', ' ') }}</td>
+        </ng-container>
+        <!-- Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

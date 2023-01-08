@@ -1,30 +1,28 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-time-filter',
   templateUrl: './time-filter.component.html',
   styleUrls: ['./time-filter.component.sass']
 })
-export class TimeFilterComponent implements OnInit {
-
-  filterForm: FormGroup=new FormGroup({
-    'from': new FormControl(""),
-    'to': new FormControl("")
-  });
-
+export class TimeFilterComponent implements OnInit, AfterViewInit {
+  @ViewChild("from") from!: ElementRef;
+  @ViewChild("to") to!: ElementRef;
   @Output() filter: EventEmitter<{from: string, to: string}>=new EventEmitter<{from: string, to: string}>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
     this.onClickDay();
   }
 
   onFilter()
   {
-    const from=this.filterForm.get("from")?.value;
-    const to=this.filterForm.get("to")?.value;
+    const from=this.from.nativeElement.value;
+    const to=this.to.nativeElement.value;
     this.filter.emit({from, to});
   }
 
@@ -74,8 +72,8 @@ export class TimeFilterComponent implements OnInit {
 
   private setFilterValues(from: string, to: string)
   {
-    this.filterForm.get("from")?.setValue(from);
-    this.filterForm.get("to")?.setValue(to);
+    this.from.nativeElement.value=from;
+    this.to.nativeElement.value=to;
     this.onFilter();
   }
 }
