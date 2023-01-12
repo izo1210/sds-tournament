@@ -19,6 +19,7 @@ export class AppComponent {
   public resultsActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   public statisticsActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   public playersActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  public settingsActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
 
   constructor(
     public router: Router,
@@ -37,6 +38,7 @@ export class AppComponent {
     this.resultsActivated$.next(p.results.eq(path));
     this.statisticsActivated$.next(p.statistics.eq(path)); 
     this.playersActivated$.next(p.players.eq(path));
+    this.settingsActivated$.next(p.settings.eq(path));
     this.sidenavOpened$.next(false);
   }
 

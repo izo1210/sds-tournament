@@ -11,7 +11,7 @@ import { PlayerPropertyProvider } from 'src/app/common/player-property-provider/
 export class PlayerCardComponent implements OnInit {
   @Input() public player: Player|null=null;
   @Input() public hideIfPlayer: Player=Player.empty;
-  @Input() public playerPropertyProvider!: PlayerPropertyProvider;
+  @Input() public playerPropertyProvider: PlayerPropertyProvider=new PlayerPropertyProvider();
   @Input() public large: boolean=false;
   @Output() public click=new EventEmitter<Player|null>();
 

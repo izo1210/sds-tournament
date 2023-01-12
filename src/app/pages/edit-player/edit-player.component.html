@@ -9,7 +9,7 @@
         <button 
             mat-icon-button 
             matTooltip="Delete player"
-            [disabled]="(player$|async)?.id===''"
+            [disabled]="id===''"
             type="button"
             (click)="onClickDelete()">
             <mat-icon>delete_outline</mat-icon>
@@ -48,8 +48,8 @@
                 matTooltip="The name what distinguishes player if more than one first name exists"
                 maxlength="30"
             />
-            <mat-error *ngIf="lastNameControl.invalid">{{lastNameControl.getError("error")}}</mat-error>
         </mat-form-field>
+        <mat-error class="out-of-field" *ngIf="lastNameControl.invalid">{{lastNameControl.getError("error")}}</mat-error>
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Color (hue)</mat-label>
             <div class="flex-row-nowrap">
@@ -59,21 +59,21 @@
                     [step]="hueStep" 
                     class="flex-child-grow"
                     [value]="hueControl.value"
-                    (input)="hueControl.setValue($event.value); hueControl.markAsDirty()"
+                    (input)="hueControl.markAsDirty(); hueControl.setValue($event.value);"
                     discrete
                 >
                 </mat-slider>
                 <input
-                    matInput
-                    type="number" 
-                    formControlName="hue" 
-                    autocomplete="off"
-                    style="width: 40px;"
-                    readonly
+                matInput
+                type="number" 
+                formControlName="hue" 
+                autocomplete="off"
+                style="width: 40px;"
+                readonly
                 />
-            </div>
-            <mat-error *ngIf="hueControl.invalid">{{hueControl.getError("error")}}</mat-error>
+                </div>
         </mat-form-field>
+        <mat-error class="out-of-field" *ngIf="hueControl.invalid">{{hueControl.getError("error")}}</mat-error>
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>ID (reaonly)</mat-label>
             <input

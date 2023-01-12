@@ -1,5 +1,26 @@
+v1.1.1
+Release Date: 2023-01-12
+
+Description: Bug fixes
+
+New Features: no
+
+Resolved Issues:
+- Can't edit player: Fixed
+- Color is not validated before changing it: Fixed
+
+Planned Features:
+- More functional Settings page
+- Password change page
+- Game matrix (who played with who, how many times)
+- Store current game locally
+
+Known Issues: no
+
+
+
 v1.1.0
-Release Date: not released
+Release Date: 2023-01-12
 
 Description: Improvements after the first usage experiences.
 
@@ -39,7 +60,7 @@ Description: Initial release.
 
 New Features:
 
-Resolved Issues:
+Resolved Issues: no
 
 Planned Features:
 

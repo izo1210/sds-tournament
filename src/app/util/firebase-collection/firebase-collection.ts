@@ -23,7 +23,8 @@ export class FirebaseCollection<T> {
     query(
         query: Query<DocumentData>, 
         resultConsumer: (result: T[])=>void = result=>this.list$.next(result), 
-        errorConsumer?: (err: Error)=>void): void
+        errorConsumer?: (err: Error)=>void
+        ): void
     {
         getDocs(query)
             .then(querySnapshot=>this.applyResult(querySnapshot, resultConsumer))
@@ -59,7 +60,7 @@ export class FirebaseCollection<T> {
         return doc(this.db, this.collectionName, id);
     }
 
-    private applyResult(querySnapshot: QuerySnapshot<DocumentData>, resultConsumer: (result: T[])=>void)
+    private applyResult(querySnapshot: QuerySnapshot<DocumentData>, resultConsumer: (result: T[])=>void): void
     {
         const result: T[]=[];
         querySnapshot.forEach(queryDocumentSnapshot=>

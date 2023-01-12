@@ -9,7 +9,7 @@
       <app-navigation-button text="List results" icon="format_list_bulleted" [path]="paths.results" [active$]="resultsActivated$" mode="menu"></app-navigation-button>
       <app-navigation-button text="Statistics" icon="query_stats" [path]="paths.statistics" [active$]="statisticsActivated$" mode="menu"></app-navigation-button>
       <app-navigation-button text="Manage players" icon="contacts" [path]="paths.players" [active$]="playersActivated$" mode="menu"></app-navigation-button>
-      <app-navigation-button text="Settings" icon="settings" [path]="paths.settings" mode="menu"></app-navigation-button>
+      <app-navigation-button text="Settings" icon="settings" [path]="paths.settings" [active$]="settingsActivated$" mode="menu"></app-navigation-button>
       <app-navigation-button text="Logout" icon="logout" [path]="paths.logout" mode="menu" confirm="Logout?"></app-navigation-button>
    </mat-sidenav>
    <mat-sidenav-content>
