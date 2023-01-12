@@ -1,0 +1,40 @@
+<app-time-filter (filter)="onFilter($event.from, $event.to)"></app-time-filter>
+<div class="main-content-container">
+    <table class="main-content" style="height: auto;" mat-table [dataSource]="dataSource"
+        matSort matSortActive="timestamp" matSortDirection="asc" matSortStart="asc">
+        <!-- Columns -->
+        <ng-container matColumnDef="winnerPlayerId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Winner</th>
+            <td mat-cell *matCellDef="let row">
+                <app-player-card 
+                    [player]="playersService.getPlayer(row.winnerPlayerId)" 
+                    [playerPropertyProvider]="playersService.defaultPlayerPropertyProvider">
+                </app-player-card>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="winnerScore">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>sc.</th>
+            <td mat-cell *matCellDef="let row">{{ row.winnerScore }}</td>
+        </ng-container>
+        <ng-container matColumnDef="loserPlayerId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Loser</th>
+            <td  mat-cell *matCellDef="let row">
+                <app-player-card 
+                    [player]="playersService.getPlayer(row.loserPlayerId)" 
+                    [playerPropertyProvider]="playersService.defaultPlayerPropertyProvider">
+                </app-player-card>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="loserScore">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>sc.</th>
+            <td mat-cell  *matCellDef="let row">{{ row.loserScore }}</td>
+        </ng-container>
+        <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
+            <td mat-cell *matCellDef="let row">{{ formatTimestamp(row.timestamp) }}</td>
+        </ng-container>
+        <!-- Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

@@ -1,5 +1,5 @@
 import { Observable, Subscription } from "rxjs";
-import { Player } from "src/app/model/player";
+import { Player } from "../../model/player";
 
 export class PlayerPropertyProvider {
     private static newDisplayName="New Player...";
@@ -9,7 +9,7 @@ export class PlayerPropertyProvider {
     private repeatedFirstNames: string[]=this.getRepeatedFirstNames();
     private subscriptionToPlayers: Subscription|null=null;
 
-    constructor(private players: Player[], private firstNameFirst: boolean=false)
+    constructor(private players: Player[]=[], private firstNameFirst: boolean=false)
     {
     }
 
@@ -88,14 +88,15 @@ export class PlayerPropertyProvider {
 
     private getPrimaryBackgroundColor(hue: number): string
     {
+        if(hue<0) return "black";
         return "hsl("+hue+", 80%, 30%)";
 
     }
 
     private getSecondaryBackgroundColor(hue: number): string
     {
+        if(hue<0) return "white";
         return "hsl("+hue+", 100%, 80%)";
-
     }
 
     private getPrimaryColor(): string

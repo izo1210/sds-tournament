@@ -11,6 +11,8 @@ import { Paths } from './app-routing.module';
 export class AppComponent {
   title = 'SDS Tournament';
 
+  public sidenavOpened$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+
   public paths=Paths.get;
   public newActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   public playActivated$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
@@ -35,6 +37,7 @@ export class AppComponent {
     this.resultsActivated$.next(p.results.eq(path));
     this.statisticsActivated$.next(p.statistics.eq(path)); 
     this.playersActivated$.next(p.players.eq(path));
+    this.sidenavOpened$.next(false);
   }
 
 }

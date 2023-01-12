@@ -8,7 +8,7 @@ export const environment = {
     messagingSenderId: '391256538816',
     measurementId: 'G-J5C6F8THY8',
   },
-  defaultEmail: 'zoltan.boros@siemens.com',
+  defaultEmail: '',
   defaultPassword: '',
   production: true
 };

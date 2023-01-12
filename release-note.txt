@@ -1,0 +1,47 @@
+v1.1.0
+Release Date: not released
+
+Description: Improvements after the first usage experiences.
+
+New Features:
+- Side menu: Only Menu and New game button left on toolbar.
+- Bigger buttons: Toolbar buttons and player labels made bigger.
+- List of results can be sorted by player. The sort done by player's ID (firstName.lastName).
+- Store games in winner/loser style
+- Settings page: nearly empty yet
+- Backup games: on Setting page
+- Results list can be sorted
+
+Resolved Issues:
+- Speak too quiet: Set to max volume, although it seems that max is the default. 
+    Timeout introduced to speak in a quieter period. 
+    Score and server announcement swapped.
+- E-mail is filled on Login page: Fixed.
+    Default value removed from production environment.
+- Can't delete player: Fixed. 
+    After click delete event, form submit event also emitted which saved the player.
+- Statistics doesn't appear when the source games containes non-exsisting player: Fixed
+    Non-exsisting players are skipped when calculating statistics.
+
+Planned Features:
+- More functional Settings page
+- Password change page
+- Game matrix (who played with who, how many times)
+- Store current game locally
+
+Known Issues:
+- Color is not validated before changing it
+
+v1.0.0
+Release Date: 2023-01-07
+
+Description: Initial release.
+
+New Features:
+
+Resolved Issues:
+
+Planned Features:
+
+Known Issues:
+- Can't delete player

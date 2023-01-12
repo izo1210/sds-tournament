@@ -1,8 +1,0 @@
-<mat-toolbar>Select left player</mat-toolbar>
-<app-player-card 
-    *ngFor="let player of playersService.playerList$ | async" 
-    [playerPropertyProvider]="playerPropertyProvider"
-    [player]="player" 
-    (click)="selectPlayer(player)">
-</app-player-card>
-<app-add-player-button></app-add-player-button>

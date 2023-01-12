@@ -1,13 +1,29 @@
-<div class="fullscreen flex-column-stretch">
-<mat-toolbar>
-   <img src="favicon.ico" matTooltip="SDS Tournament" style="padding-right: 10px">
-   <app-navigation-button matTooltip="New game" icon="people_outline" [path]="paths.newLeft" [active$]="newActivated$"></app-navigation-button>
-   <app-navigation-button matTooltip="Current game" icon="play_circle_outline" [path]="paths.play" [active$]="playActivated$"></app-navigation-button>
-   <app-navigation-button matTooltip="List results" icon="format_list_bulleted" [path]="paths.results" [active$]="resultsActivated$"></app-navigation-button>
-   <app-navigation-button matTooltip="Statistics" icon="query_stats" [path]="paths.statistics" [active$]="statisticsActivated$"></app-navigation-button>
-   <span class="spacer"></span>
-   <app-navigation-button matTooltip="Manage players" icon="contacts" [path]="paths.players" [active$]="playersActivated$"></app-navigation-button>
-   <app-navigation-button matTooltip="Logout" icon="logout" [path]="paths.logout" confirm="Logout?"></app-navigation-button>
-</mat-toolbar>
-<router-outlet></router-outlet>
-</div>
+<!-- <div class="fullscreen flex-column-stretch"> -->
+<mat-sidenav-container class="root">
+   <mat-sidenav mode="side" [opened]="sidenavOpened$|async">
+      <button mat-icon-button (click)="sidenavOpened$.next(false)" style="height: 70px;">
+         <mat-icon>navigate_before</mat-icon>
+      </button>
+      <app-navigation-button text="New game" icon="people_outline" [path]="paths.newLeft" [active$]="newActivated$" mode="menu"></app-navigation-button>
+      <app-navigation-button text="Current game" icon="play_circle_outline" [path]="paths.play" [active$]="playActivated$" mode="menu"></app-navigation-button>
+      <app-navigation-button text="List results" icon="format_list_bulleted" [path]="paths.results" [active$]="resultsActivated$" mode="menu"></app-navigation-button>
+      <app-navigation-button text="Statistics" icon="query_stats" [path]="paths.statistics" [active$]="statisticsActivated$" mode="menu"></app-navigation-button>
+      <app-navigation-button text="Manage players" icon="contacts" [path]="paths.players" [active$]="playersActivated$" mode="menu"></app-navigation-button>
+      <app-navigation-button text="Settings" icon="settings" [path]="paths.settings" mode="menu"></app-navigation-button>
+      <app-navigation-button text="Logout" icon="logout" [path]="paths.logout" mode="menu" confirm="Logout?"></app-navigation-button>
+   </mat-sidenav>
+   <mat-sidenav-content>
+      <div class="page-container">
+         <mat-toolbar>
+            <app-navigation-button text="Open menu" icon="menu" (click)="sidenavOpened$.next(true)"></app-navigation-button>
+            <span class="left-right-spacer"></span>
+            <img src="favicon.ico"/>
+            {{title}}
+            <span class="left-right-spacer"></span>
+            <app-navigation-button text="New game" icon="people_outline" [path]="paths.newLeft" [active$]="newActivated$"></app-navigation-button>
+         </mat-toolbar>
+         <router-outlet></router-outlet>
+      </div>
+   </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- </div> -->

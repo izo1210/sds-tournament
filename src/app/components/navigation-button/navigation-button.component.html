@@ -1,0 +1,15 @@
+<button *ngIf="mode==='fab'" 
+    mat-fab 
+    [color]="(active$|async) ? 'primary' : ''" 
+    [matTooltip]="text"
+    (click)="onClick($event)">
+    <mat-icon>{{icon}}</mat-icon>
+ </button>
+ <button *ngIf="mode==='menu'"
+    mat-button
+    [color]="(active$|async) ? 'primary' : ''" 
+    style="padding: 5px;"
+    (click)="onClick($event)">
+    <mat-icon>{{icon}}</mat-icon>
+    {{text}}
+ </button>

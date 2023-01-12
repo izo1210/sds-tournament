@@ -1,0 +1,13 @@
+<mat-toolbar>
+    <span class="left-right-spacer"></span>
+    <span>Manage players</span>
+    <span class="left-right-spacer"></span>
+</mat-toolbar>
+<app-player-card 
+    *ngFor="let player of playersService.list$ | async" 
+    [playerPropertyProvider]="playerPropertyProvider"
+    [player]="player" 
+    [large]="true"
+    (click)="selectPlayer(player)">
+</app-player-card>
+<app-add-player-button></app-add-player-button>

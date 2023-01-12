@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 //Material
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -11,6 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
@@ -24,22 +26,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 //AppComponents
-import { LoginComponent } from './component/login/login.component';
-import { ResultsComponent } from './component/results/results.component';
-import { SelectLeftPlayerComponent } from './component/select-left-player/select-left-player.component';
-import { SelectRightPlayerComponent } from './component/select-right-player/select-right-player.component';
-import { SelectFirstPlayerComponent } from './component/select-first-player/select-first-player.component';
-import { PlayerCardComponent } from './component/player-card/player-card.component';
-import { CurrentGameComponent } from './component/current-game/current-game.component';
-import { ScoreCardComponent } from './component/score-card/score-card.component';
-import { GameCardComponent } from './component/game-card/game-card.component';
-import { TimeFilterComponent } from './component/time-filter/time-filter.component';
-import { StatisticsComponent } from './component/statistics/statistics.component';
-import { EditPlayerComponent } from './component/edit-player/edit-player.component';
-import { ManagePlayersComponent } from './component/manage-players/manage-players.component';
-import { AddPlayerButtonComponent } from './component/add-player-button/add-player-button.component';
-import { NavigationButtonComponent } from './component/navigation-button/navigation-button.component';
-import { LogoutComponent } from './component/logout/logout.component';
+import { PlayerCardComponent } from './components/player-card/player-card.component';
+import { ScoreCardComponent } from './components/score-card/score-card.component';
+import { TimeFilterComponent } from './components/time-filter/time-filter.component';
+import { AddPlayerButtonComponent } from './components/add-player-button/add-player-button.component';
+import { NavigationButtonComponent } from './components/navigation-button/navigation-button.component';
+import { CurrentGameComponent } from './pages/current-game/current-game.component';
+import { EditPlayerComponent } from './pages/edit-player/edit-player.component';
+import { LoginComponent } from './pages/login/login.component';
+import { LogoutComponent } from './pages/logout/logout.component';
+import { ManagePlayersComponent } from './pages/manage-players/manage-players.component';
+import { ResultsComponent } from './pages/results/results.component';
+import { SelectFirstPlayerComponent } from './pages/select-first-player/select-first-player.component';
+import { SelectLeftPlayerComponent } from './pages/select-left-player/select-left-player.component';
+import { SelectRightPlayerComponent } from './pages/select-right-player/select-right-player.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,6 @@ import { LogoutComponent } from './component/logout/logout.component';
     PlayerCardComponent,
     CurrentGameComponent,
     ScoreCardComponent,
-    GameCardComponent,
     TimeFilterComponent,
     StatisticsComponent,
     EditPlayerComponent,
@@ -60,11 +61,13 @@ import { LogoutComponent } from './component/logout/logout.component';
     AddPlayerButtonComponent,
     NavigationButtonComponent,
     LogoutComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatTabsModule,
     MatToolbarModule,
     MatIconModule,
@@ -72,6 +75,7 @@ import { LogoutComponent } from './component/logout/logout.component';
     MatInputModule,
     MatButtonModule,
     MatRadioModule,
+    MatSidenavModule,
     MatSliderModule,
     MatSortModule,
     MatTableModule,

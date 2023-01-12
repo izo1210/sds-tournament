@@ -1,0 +1,8 @@
+<div
+    *ngIf="player!==hideIfPlayer" 
+    class="round-corner"
+    [class.large]="large"
+    [style.background-color]="playerPropertyProvider.getBackgroundColor(player)" 
+    [style.color]="playerPropertyProvider.getColor(player)" (click)="onClick(player)">
+    {{ playerPropertyProvider.getDisplayName(player) }}
+</div>
