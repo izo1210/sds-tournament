@@ -1,4 +1,3 @@
-<!-- <div class="fullscreen flex-column-stretch"> -->
 <mat-sidenav-container class="root">
    <mat-sidenav mode="side" [opened]="sidenavOpened$|async">
       <button mat-icon-button (click)="sidenavOpened$.next(false)" style="height: 70px;">
@@ -16,14 +15,13 @@
       <div class="page-container">
          <mat-toolbar>
             <app-navigation-button text="Open menu" icon="menu" (click)="sidenavOpened$.next(true)"></app-navigation-button>
+            <app-navigation-button text="New game" icon="people_outline" [path]="paths.newLeft" [active$]="newActivated$"></app-navigation-button>
             <span class="left-right-spacer"></span>
             <img src="favicon.ico"/>
             {{title}}
             <span class="left-right-spacer"></span>
-            <app-navigation-button text="New game" icon="people_outline" [path]="paths.newLeft" [active$]="newActivated$"></app-navigation-button>
          </mat-toolbar>
          <router-outlet></router-outlet>
       </div>
    </mat-sidenav-content>
 </mat-sidenav-container>
-<!-- </div> -->

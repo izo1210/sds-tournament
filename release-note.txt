@@ -1,3 +1,20 @@
+v1.2.0
+Release Date: 2023-01-17
+
+New Features:
+- More functional Settings page (Settings removed from Select first player page)
+- Speak delay can be configured
+
+Resolved Issues: no
+
+Planned Features:
+- Password change page
+- Game matrix (who played with who, how many times)
+- Store current game locally
+- Jaj
+
+Known Issues: no
+
 v1.1.1
 Release Date: 2023-01-12
 
@@ -16,8 +33,6 @@ Planned Features:
 - Store current game locally
 
 Known Issues: no
-
-
 
 v1.1.0
 Release Date: 2023-01-12

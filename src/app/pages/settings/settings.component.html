@@ -1,7 +1,26 @@
-<mat-toolbar>
-    <span class="left-right-spacer"></span>
-    <span>Settings</span>
-    <span class="left-right-spacer"></span>
-</mat-toolbar>
+<form [formGroup]="settingsForm" (ngSubmit)="save()">
+    <mat-toolbar>
+        <span class="left-right-spacer"></span>
+        <span>Settings</span>
+        <span class="left-right-spacer"></span>
+        <button 
+            mat-fab
+            matTooltip="Save"
+            [disabled]="settingsForm.pristine || settingsForm.invalid">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <div class="flex-column-stretch" style="gap: 5px">
+        <mat-form-field 
+            *ngFor="let control of settingsForm.controls | keyvalue"
+            appearance="outline">
+            <mat-label>{{control.key}}</mat-label>
+            <input matInput [formControlName]="control.key"/>
+            <mat-error *ngIf="control.value.invalid">{{errors(control.value)}}</mat-error>
+        </mat-form-field>
+    </div>
+</form>
+<hr>
 <button mat-raised-button (click)="copyGamesToClipboard()">Copy games to clipboard (for backup)...</button>
-<div>v1.1.1</div>
+<hr>
+<div>v1.2.0</div>

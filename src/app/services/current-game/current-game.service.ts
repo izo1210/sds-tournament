@@ -30,7 +30,7 @@ export class CurrentGameService {
   
   constructor(
     private gamesService: GamesService,
-    private propertiesService: SettingsService,
+    private settingsService: SettingsService,
     private speakerService: SpeakerService
   ) 
   { 
@@ -142,7 +142,7 @@ export class CurrentGameService {
   private setServerPlayerWhenInProgress()
   {
     const totalScore=this.leftScore$.value+this.rightScore$.value;
-    const firstPlayerServes=(totalScore%(this.propertiesService.serveCount*2)<this.propertiesService.serveCount);
+    const firstPlayerServes=(totalScore%(this.settingsService.serveCount*2)<this.settingsService.serveCount);
 
     let newServerPlayer=firstPlayerServes ? this.firstPlayer : this.secondPlayer;
 
@@ -193,7 +193,7 @@ export class CurrentGameService {
   {
     const maxScore=Math.max(this.leftScore$.value, this.rightScore$.value);
     const minScore=Math.min(this.leftScore$.value, this.rightScore$.value);
-    return maxScore>=this.propertiesService.winScore && maxScore-minScore>=this.propertiesService.winDiff;
+    return maxScore>=this.settingsService.winScore && maxScore-minScore>=this.settingsService.winDiff;
   }
 
   leader(): Player
@@ -266,21 +266,21 @@ export class CurrentGameService {
     if(this.leftScore$.value===0 && this.rightScore$.value===0) return;
     let text=""+this.leftScore$.value+", "+this.rightScore$.value+".";
     if(this.leftScore$.value==10 && this.rightScore$.value==6) text="10, 6, még bízhat.";
-    setTimeout(()=>this.speakerService.speak(text), this.propertiesService.speakTimeout);
+    setTimeout(()=>this.speakerService.speak(text), this.settingsService.speakScoreTimeout);
   }
 
   private speakServerPlayer()
   {
     if(this.state$.value!==CurrentGameService.STATE_IN_PROGRESS) return;
     let text=this.playerPropertyProvider.getDisplayName(this.serverPlayer$.value)+" szervál.";
-    setTimeout(()=>this.speakerService.speak(text), this.propertiesService.speakTimeout+1000);
+    setTimeout(()=>this.speakerService.speak(text), this.settingsService.speakNameTimeout);
   }
 
   private speakWinner()
   {
     if(this.state$.value!==CurrentGameService.STATE_FINISHED) return;
     let text=this.playerPropertyProvider.getDisplayName(this.leader())+" nyert!";
-    setTimeout(()=>this.speakerService.speak(text), this.propertiesService.speakTimeout+1000);
+    setTimeout(()=>this.speakerService.speak(text), this.settingsService.speakNameTimeout);
   }
 
 }

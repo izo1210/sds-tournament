@@ -20,24 +20,3 @@
         (click)="selectPlayer(currentGameService.rightPlayer)">
     </app-player-card>
 </div>
-<form [formGroup]="propertiesForm">
-<div class="flex-column-center">
-    <div class="flex-row-wrap" style="padding: 5px">
-        <mat-form-field appearance="outline">
-            <mat-label>Serve count</mat-label>
-            <input matInput formControlName="serveCount"/>
-            <mat-error *ngIf="serveCountControl.invalid">{{errors(serveCountControl)}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Win score</mat-label>
-            <input matInput formControlName="winScore"/>
-            <mat-error *ngIf="serveCountControl.invalid">{{errors(winScoreControl)}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Win diff</mat-label>
-            <input matInput formControlName="winDiff"/>
-            <mat-error *ngIf="serveCountControl.invalid">{{errors(winDiffControl)}}</mat-error>
-        </mat-form-field>
-    </div>
-</div>
-</form>
