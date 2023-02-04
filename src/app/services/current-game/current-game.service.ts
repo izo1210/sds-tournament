@@ -264,7 +264,7 @@ export class CurrentGameService {
   private speakScores()
   {
     if(this.leftScore$.value===0 && this.rightScore$.value===0) return;
-    let text=""+this.leftScore$.value+", "+this.rightScore$.value+".";
+    let text=""+this.leftScore$.value+", "+this.rightScore$.value;
     if(this.leftScore$.value==10 && this.rightScore$.value==6) text="10, 6, még bízhat.";
     setTimeout(()=>this.speakerService.speak(text), this.settingsService.speakScoreTimeout);
   }
