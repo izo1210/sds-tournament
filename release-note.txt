@@ -1,4 +1,6 @@
 v1.2.1
+Release Date: 2023-11-24
+
 Resolved Issues:
 - On iOS: second score said as ordinal number
 - Double click can save game multiple times
