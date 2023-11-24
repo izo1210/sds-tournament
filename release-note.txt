@@ -4,6 +4,7 @@ Resolved Issues:
 
 Known Issued:
 - On iOS: content is zoomed in
+- Double click can save game multiple times
 
 v1.2.0
 Release Date: 2023-01-17
