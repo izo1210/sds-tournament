@@ -17,14 +17,23 @@
         [disabled]="currentGameService.history.empty$ | async">
         <mat-icon>undo</mat-icon>
     </button>
-    <button 
-        mat-fab
-        matTooltip="Save game"
-        (click)="currentGameService.save()"
-        [class.glow]="(currentGameService.state$ | async)===currentGameService.stateFinished()"
-        [disabled]="(currentGameService.state$ | async)!==currentGameService.stateFinished()">
-        <mat-icon>save</mat-icon>
-    </button>
+    <ng-template *ngIf="currentGameService.saving$|async; then showProgressSpinner else showSaveButton"></ng-template>
+    <ng-template #showSaveButton>
+        <button             
+            mat-fab
+            matTooltip="Save game"
+            (click)="currentGameService.save()"
+            [class.glow]="(currentGameService.state$ | async)===currentGameService.stateFinished()"
+            [disabled]="(currentGameService.state$ | async)!==currentGameService.stateFinished()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </ng-template>
+    <ng-template #showProgressSpinner>
+        <mat-progress-spinner 
+            mode="indeterminate" 
+            [diameter]="48"        
+        ></mat-progress-spinner>
+    </ng-template>
 </mat-toolbar>
 <div class="flex-row-nowrap scores">
     <app-score-card

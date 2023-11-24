@@ -229,8 +229,11 @@ export class CurrentGameService {
     return CurrentGameService.STATE_SAVED;
   }
 
+  readonly saving$=new BehaviorSubject<boolean>(false);
+
   save()
   {
+    this.saving$.next(true);
     const leftWins=(this.leftScore$.value>this.rightScore$.value);
     const game: Game=new Game();
     game.winnerPlayerId=leftWins ? this.leftPlayer.id : this.rightPlayer.id;
@@ -244,7 +247,8 @@ export class CurrentGameService {
         this.state$.next(this.stateSaved());
         this.history.clear();
       })
-      .catch(reason=>alert("Failed to save: "+reason));
+      .catch(reason=>alert("Failed to save: "+reason))
+      .finally(()=>this.saving$.next(false));
   }
 
   getPlayers(): Player[]

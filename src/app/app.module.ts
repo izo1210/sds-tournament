@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -77,6 +78,7 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
     MatRadioModule,
     MatSidenavModule,
     MatSliderModule,
+    MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
     MatTooltipModule,
